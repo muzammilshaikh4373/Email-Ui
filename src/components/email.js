@@ -7,7 +7,7 @@ export const emailArray = [
     subject: "Hello There asd asd asddQ fasd fasdf",
     body: "<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus dignissimos magnam pariatur adipisci ex unde laboriosam blanditiis harum, </p><p>quas accusamus eveniet saepe, molestiae quam eum ipsum sit <strong>quisquam</strong> veniam autem. Debitis excepturi quos ex dolor, laudantium repellat inventore voluptatibus saepe libero repudiandae sint. Eveniet corporis sed, cum alias enim illo!</p>",
     isRead: false,
-    folder: "inbox",
+ 
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ export const emailArray = [
     subject: "Some Info",
     body: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus dignissimos magnam pariatur adipisci ex unde laboriosam blanditiis harum, quas accusamus eveniet saepe, molestiae quam eum ipsum sit quisquam veniam autem. Debitis excepturi quos ex dolor, laudantium repellat inventore voluptatibus saepe libero repudiandae sint. Eveniet corporis sed, cum alias enim illo!<br><br>Jane",
     isRead: false,
-    folder: "inbox",
+    folder: "INBOX",
   },
   {
     id: 3,
@@ -27,7 +27,7 @@ export const emailArray = [
     subject: "New!! Much Value! 99% off!",
     body: "<a href='#'>Click here to win!</a>",
     isRead: false,
-    folder: "inbox",
+    folder: "INBOX",
   },
   {
     id: 4,
@@ -37,7 +37,7 @@ export const emailArray = [
     subject: "New!! Much Value! 99% off!",
     body: "<a href='#'>Click here to win!</a>",
     isRead: false,
-    folder: "inbox",
+    folder: "INBOX",
   },
   {
     id: 5,
@@ -47,7 +47,7 @@ export const emailArray = [
     subject: "Hello There asd asd asddQ fasd fasdf",
     body: "<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus dignissimos magnam pariatur adipisci ex unde laboriosam blanditiis harum, </p><p>quas accusamus eveniet saepe, molestiae quam eum ipsum sit <strong>quisquam</strong> veniam autem. Debitis excepturi quos ex dolor, laudantium repellat inventore voluptatibus saepe libero repudiandae sint. Eveniet corporis sed, cum alias enim illo!</p>",
     isRead: false,
-    folder: "inbox",
+    folder: "INBOX",
   },
   {
     id: 6,
@@ -57,7 +57,7 @@ export const emailArray = [
     subject: "Hello There asd asd asddQ fasd fasdf",
     body: "<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus dignissimos magnam pariatur adipisci ex unde laboriosam blanditiis harum, </p><p>quas accusamus eveniet saepe, molestiae quam eum ipsum sit <strong>quisquam</strong> veniam autem. Debitis excepturi quos ex dolor, laudantium repellat inventore voluptatibus saepe libero repudiandae sint. Eveniet corporis sed, cum alias enim illo!</p>",
     isRead: false,
-    folder: "inbox",
+    folder: "INBOX",
   },
   {
     id: 7,
@@ -67,7 +67,7 @@ export const emailArray = [
     subject: "Hello There asd asd asddQ fasd fasdf",
     body: "<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus dignissimos magnam pariatur adipisci ex unde laboriosam blanditiis harum, </p><p>quas accusamus eveniet saepe, molestiae quam eum ipsum sit <strong>quisquam</strong> veniam autem. Debitis excepturi quos ex dolor, laudantium repellat inventore voluptatibus saepe libero repudiandae sint. Eveniet corporis sed, cum alias enim illo!</p>",
     isRead: false,
-    folder: "inbox",
+    folder: "INBOX",
   },
   {
     id: 8,
@@ -81,12 +81,11 @@ export const emailArray = [
   },
   {
     id: 9,
-    to: "Me",
     from: "John Smith",
     date: "5 Dec 2016 15:00",
     subject: "Hello There asd asd asddQ fasd fasdf",
     body: "<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus dignissimos magnam pariatur adipisci ex unde laboriosam blanditiis harum, </p><p>quas accusamus eveniet saepe, molestiae quam eum ipsum sit <strong>quisquam</strong> veniam autem. Debitis excepturi quos ex dolor, laudantium repellat inventore voluptatibus saepe libero repudiandae sint. Eveniet corporis sed, cum alias enim illo!</p>",
     isRead: false,
-    folder: "inbox",
+    folder: "INBOX",
   },
 ];

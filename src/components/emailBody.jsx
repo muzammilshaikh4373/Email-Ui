@@ -3,9 +3,8 @@ import "../assets/style/emailBody.css";
 import { emailArray } from "./email.js";
 
 const EmailClient = () => {
-  const [selectedFolder, setSelectedFolder] = useState("inbox");
+  const [selectedFolder, setSelectedFolder] = useState("INBOX");
   const [selectedMessage, setSelectedMessage] = useState(null);
-
   const [emails, setEmails] = useState(emailArray);
 
   useEffect(() => {
@@ -13,22 +12,12 @@ const EmailClient = () => {
   }, [selectedFolder, emails]);
 
   const updateBadges = () => {
-    // Calculate unread counts for each folder
-    const unreadCounts = emails.reduce((counts, email) => {
-      if (email.folder in counts) {
-        counts[email.folder] += email.isRead ? 0 : 1;
-      } else {
-        counts[email.folder] = email.isRead ? 0 : 1;
-      }
-      return counts;
-    }, {});
-
-
-  };
-
-  const handleFolderClick = (folder) => {
-    setSelectedFolder(folder);
-    updateBadges();
+    // Calculate unread counts for the inbox folder
+    const unreadCount = emails.filter(
+      (email) => email.folder === "INBOX" && !email.isRead
+    ).length;
+    // Update badge for inbox
+    document.getElementById("inbox-badge").innerText = unreadCount;
   };
 
   const handleMessageClick = (messageId) => {
@@ -38,7 +27,7 @@ const EmailClient = () => {
     const message = updatedEmails.find((email) => email.id === messageId);
     setSelectedMessage(message);
     setEmails(updatedEmails);
-    updateBadges();
+    updateBadges(); // Update badges when message is clicked
   };
 
   const filteredEmails = emails.filter(
@@ -51,20 +40,18 @@ const EmailClient = () => {
         {/* Folders Pane */}
         <div className="email-folders-pane col-sm-2">
           <ul className="email-folders">
-            {["inbox", "sent", "drafts", "trash"].map((folder) => (
-              <li key={folder} data-folder={folder}>
-                <button type="button" onClick={() => handleFolderClick(folder)}>
-                  {folder.charAt(0).toUpperCase() + folder.slice(1)}
-                  <span className="badge">
-                    {
-                      emails.filter(
-                        (email) => email.folder === folder && !email.isRead
-                      ).length
-                    }
-                  </span>
-                </button>
-              </li>
-            ))}
+            <li key="INBOX" data-folder="INBOX">
+              <button type="button" onClick={() => setSelectedFolder("INBOX")}>
+                Inbox
+                <span className="badge" id="inbox-badge">
+                  {
+                    emails.filter(
+                      (email) => email.folder === "INBOX" && !email.isRead
+                    ).length
+                  }
+                </span>
+              </button>
+            </li>
           </ul>
         </div>
 
@@ -75,14 +62,13 @@ const EmailClient = () => {
             <div className="mail-list-scroller">
               {filteredEmails.map((email) => (
                 <li
-                key={email.id}
-                className={`email-message-item ${
-                  selectedMessage?.id === email.id ? "active" : ""
-                } ${email.isRead ? "" : "unread"}`}
-                onClick={() => handleMessageClick(email.id)}
-              >
+                  key={email.id}
+                  className={`email-message-item ${
+                    selectedMessage?.id === email.id ? "active" : ""
+                  } ${email.isRead ? "" : "unread"}`}
+                  onClick={() => handleMessageClick(email.id)}
+                >
                   <div className="message-from">{email.from}</div>
-                  {/* <div className="message-date">{email.date}</div> */}
                   <div className="message-subject">{email.subject}</div>
                 </li>
               ))}
@@ -94,14 +80,15 @@ const EmailClient = () => {
           <div className="email-message-detail">
             {selectedMessage ? (
               <>
-                <div className="message-from">{selectedMessage.from}</div>
-                <div className="message-to">To: {selectedMessage.to}</div>
-                <div className="message-subject">{selectedMessage.subject}</div>
+                <div className="message-from">from : {selectedMessage.from}</div>
+                <br />
+                <div className="message-subject">Subject : {selectedMessage.subject}</div>
+                <br />
                 <div
                   className="message-body"
                   dangerouslySetInnerHTML={{ __html: selectedMessage.body }}
                 />
-                <button  className="ticket-btn">Generate Ticket</button>
+                <button className="ticket-btn">Generate Ticket</button>
               </>
             ) : (
               <div className="message-body">No message selected.</div>
