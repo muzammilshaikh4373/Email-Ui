@@ -23,7 +23,7 @@ const EmailClient = () => {
       return counts;
     }, {});
 
-    
+
   };
 
   const handleFolderClick = (folder) => {
@@ -75,12 +75,12 @@ const EmailClient = () => {
             <div className="mail-list-scroller">
               {filteredEmails.map((email) => (
                 <li
-                  key={email.id}
-                  className={`email-message-item ${
-                    selectedMessage?.id === email.id ? "active" : ""
-                  }`}
-                  onClick={() => handleMessageClick(email.id)}
-                >
+                key={email.id}
+                className={`email-message-item ${
+                  selectedMessage?.id === email.id ? "active" : ""
+                } ${email.isRead ? "" : "unread"}`}
+                onClick={() => handleMessageClick(email.id)}
+              >
                   <div className="message-from">{email.from}</div>
                   {/* <div className="message-date">{email.date}</div> */}
                   <div className="message-subject">{email.subject}</div>
