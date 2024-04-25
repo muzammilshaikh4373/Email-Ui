@@ -62,7 +62,7 @@ body,
 .email-message-list-pane .list-details {
   padding: 0 5px 5px;
   margin-bottom: 10px;
-  text-align: center;
+ 
 }
 .list-details .list-name {
   margin-top: 0;
@@ -214,9 +214,7 @@ body,
   height: 80vh;
 }
 
-.mail-list-scroller::-webkit-scrollbar {
-  width: 15px;
-}
+
 
 .mail-list-scroller::-webkit-scrollbar-track {
   background-color: #f1f1f1;
@@ -230,3 +228,18 @@ body,
 .mail-list-scroller::-webkit-scrollbar-thumb:hover {
   background-color: #555;
 }
+
+
+.scrollable {
+  max-height: 430px; 
+  overflow-y: auto;
+}
+
+.insidemail{
+   border: 1px solid;
+   border-radius: 10px;
+   padding: 2px;
+   width: 50%;
+   background-color: #ccc;
+   font-weight:bolder;
+  }
