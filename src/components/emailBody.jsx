@@ -3,6 +3,7 @@ import "../assets/style/emailBody.css";
 import { emailArray } from "./email.js";
 import { Modal, Button, Form, Col, Row, Spinner } from 'react-bootstrap';
 import axios from  'axios'
+import { useForm } from "react-hook-form";
 
 const EmailClient = () => {
   const [selectedFolder, setSelectedFolder] = useState("INBOX");
@@ -10,6 +11,7 @@ const EmailClient = () => {
   const [emails, setEmails] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(true); // Initialize loading state to true
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
   useEffect(() => {
     // Simulate API call delay
@@ -35,7 +37,7 @@ const EmailClient = () => {
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
 
-  const handleSubmit = (e) => {
+  const Submit = (e) => {
     e.preventDefault();
     // Handle form submission logic here
     handleClose(); // Close modal after form submission
@@ -144,7 +146,7 @@ const EmailClient = () => {
           <Modal.Title>Create Ticket</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={Submit}>
            
               <Row className="mb-3">
                 <Form.Group as={Col} controlId="formName">
