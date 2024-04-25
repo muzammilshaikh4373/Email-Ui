@@ -12,6 +12,7 @@ const EmailClient = () => {
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(true); // Initialize loading state to true
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const [ticketGeneratedForMessage, setTicketGeneratedForMessage] = useState({});
 
   useEffect(() => {
     // Simulate API call delay
@@ -43,8 +44,32 @@ const EmailClient = () => {
     handleClose(); // Close modal after form submission
   };
 
+  const onSubmit = (data) => {
+    
+    const postData = {
+      ...selectedMessage,
+      formData: data
+    };
+
+    console.log(postData);
+    handleClose()
+  
+    // axios.post("your_api_endpoint", postData)
+    //   .then(response => {
+    //     console.log("Ticket submitted successfully:", response.data);
+    //     handleClose(); 
+    //   })
+    //   .catch(error => {
+    //     console.error('Error submitting ticket:', error);
+    //   });
+
+    setTicketGeneratedForMessage(prevState => ({
+      ...prevState,
+      [selectedMessage.messageId]: true
+    }));
+  };
   const updateBadges = () => {
-    // Calculate unread counts for the inbox folder
+
     const unreadCount = emails.filter(
       (email) => email.folder === "INBOX" && !email.seen
     ).length;
@@ -60,6 +85,10 @@ const EmailClient = () => {
     setSelectedMessage(message);
     setEmails(updatedEmails);
     updateBadges();
+    setTicketGeneratedForMessage(prevState => ({
+      ...prevState,
+      [messageId]: ticketGeneratedForMessage[messageId] || false
+    }));
   };
 
   const filteredEmails = emails.filter(
@@ -131,7 +160,13 @@ const EmailClient = () => {
                   dangerouslySetInnerHTML={{ __html: selectedMessage.body }}
                 />
                 <div>
-                  <button className="ticket-btn" onClick={handleShow}>Generate Ticket</button>
+                <button
+                  className={`ticket-btn ${ticketGeneratedForMessage[selectedMessage.messageId] ? 'disabled' : ''}`}
+                    onClick={handleShow}
+                    disabled={ticketGeneratedForMessage[selectedMessage.messageId]}
+                  >
+                    Generate Ticket
+                  </button>
                 </div>
               </>
             ) : (
@@ -142,54 +177,62 @@ const EmailClient = () => {
       </div>
 
       <Modal show={showModal} onHide={handleClose} size="lg">
-        <Modal.Header closeButton>
-          <Modal.Title>Create Ticket</Modal.Title>
-        </Modal.Header>
+        {/* Modal content */}
         <Modal.Body>
-          <Form onSubmit={Submit}>
-           
-              <Row className="mb-3">
-                <Form.Group as={Col} controlId="formName">
-                  <Form.Label>Name</Form.Label>
-                  <Form.Control type="text" placeholder="Name" required />
-                  <Form.Text className="text-muted">
-                    Please identify who is submitting the ticket
-                  </Form.Text>
-                </Form.Group>
-              </Row>
+          <Form onSubmit={handleSubmit(onSubmit)}>
+            <Row className="mb-3">
+              <Form.Group as={Col} controlId="formName">
+                <Form.Label>Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter Name"
+                  {...register("name", { required: true })}
+                />
+                {errors.name && <span className="text-danger">Name is required</span>}
+              </Form.Group>
+            </Row>
 
-              <Row className="mb-3">
-                <Form.Group as={Col} controlId="formEmail">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control type="email" placeholder="Enter Email ID" required />
-                  <Form.Text className="text-muted">
-                    Add the Email address that we can reach you at
-                  </Form.Text>
-                </Form.Group>
-              </Row>
-              <Row className="mb-3">
-                <Form.Group as={Col} controlId="formTicketType">
-                  <Form.Label>Ticket Type</Form.Label>
-                  <Form.Control as="select">
-                    <option value="Request">Request</option>
-                    <option value="category">category</option>
-                    <option value="sub-category">sub-category</option>
-                  </Form.Control>
-                </Form.Group>
-              </Row>
-              <Row className="mb-3">
-                <Form.Group as={Col} controlId="formDescription">
-                  <Form.Label>Description</Form.Label>
-                  <Form.Control as="textarea" rows={3} placeholder="Describe your task." />
-                </Form.Group>
-              </Row>
+            <Row className="mb-3">
+              <Form.Group as={Col} controlId="formEmail">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  placeholder="Enter Email"
+                  {...register("email", { required: true })}
+                />
+                {errors.email && <span className="text-danger">Email is required</span>}
+              </Form.Group>
+            </Row>
 
-              <Row className="mb-3">
-                <Col className="text-center">
-                  <Button variant="success">Submit Ticket</Button>
-                </Col>
-              </Row>
-          
+            <Row className="mb-3">
+              <Form.Group as={Col} controlId="formTicketType">
+                <Form.Label>Ticket Type</Form.Label>
+                <Form.Control as="select" {...register("ticketType")}>
+                  <option value="Request">Request</option>
+                  <option value="category">category</option>
+                  <option value="sub-category">sub-category</option>
+                </Form.Control>
+              </Form.Group>
+            </Row>
+
+            <Row className="mb-3">
+              <Form.Group as={Col} controlId="formDescription">
+                <Form.Label>Description</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  placeholder="Describe your task."
+                  {...register("description", { required: true })}
+                />
+                {errors.description && <span className="text-danger">Description is required</span>}
+              </Form.Group>
+            </Row>
+
+            <Row className="mb-3">
+              <Col className="text-center">
+                <Button variant="success" type="submit">Submit Ticket</Button>
+              </Col>
+            </Row>
           </Form>
         </Modal.Body>
       </Modal>

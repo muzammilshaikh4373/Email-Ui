@@ -242,4 +242,11 @@ body,
    width: 50%;
    background-color: #ccc;
    font-weight:bolder;
+   margin-left: 20px;
   }
+
+  .ticket-btn.disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
